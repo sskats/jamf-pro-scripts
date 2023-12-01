@@ -1,9 +1,11 @@
 #!/bin/zsh
 
-result=$(ioreg -arln AppleHIDKeyboardEventDriverV2)
+machineModel=$(system_profiler SPHardwareDataType  -json  | plutil -extract SPHardwareDataType.0.machine_model raw -)
 
-if [[ -n $result ]]; then
-   echo "<result>$(plutil -extract 0.KeyboardLanguage raw - <<< $result)</result>"
-fi  
+if [[ $machineModel == *Book* ]]; then
+   result=$(ioreg -arln AppleHIDKeyboardEventDriverV2 | plutil -extract 0.KeyboardLanguage raw -)
+fi
+
+echo "<result>$result</result>"
 
 exit 0
