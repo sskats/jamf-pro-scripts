@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 installedVersion=$(plutil -extract KSVersion raw /Applications/Google\ Chrome.app/Contents/Info.plist)
-runningVersion=$(ps -xo args | grep -e '[G]oogle Chrome Helper (GPU).app' | sed 's/.*\/Versions\/\([0-9.]*\)\/.*/\1/')
+runningVersion=$(ps -axo comm | grep -e '[G]oogle Chrome Helper (GPU)' | sed 's/.*\/Versions\/\([0-9.]*\)\/.*/\1/')
 
 if [[ ! -f /Applications/Google\ Chrome.app/Contents/Info.plist ]]; then 
     result="Google Chrome not installed."
