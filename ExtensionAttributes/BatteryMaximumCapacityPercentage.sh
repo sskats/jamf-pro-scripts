@@ -7,9 +7,8 @@ if [[ $machineModel != *Book* ]]; then
 
 else
   arch=$(/usr/bin/arch)
-
   if [[ "$arch" == "arm64" ]]; then
-    result=$(system_profiler SPPowerDataType -json | plutil -extract SPPowerDataType.0.sppower_battery_health_info.sppower_battery_health_maximum_capacity raw - | sed -e 's/[^0-9]//g')
+    result=$(system_profiler SPPowerDataType -json | plutil -extract SPPowerDataType.0.sppower_battery_health_info.sppower_battery_health_maximum_capacity raw - | tr -d '%' )
 
   elif [[ "$arch" == "i386" ]]; then
     resutlsBatteryInfo=$(ioreg -arln "AppleSmartBattery")
